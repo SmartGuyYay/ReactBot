@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NRL React Bot Lite</title>
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #444;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 20px 0;
+    }
+
+    button:hover {
+      background-color: #666;
+    }
+
+    #face {
+      font-size: 50px;
+      margin-top: 30px;
+    }
+
+    #eyes {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 5px;
+    }
+
+    .eye {
+      font-size: 40px;
+    }
+
+    #mouth {
+      font-size: 50px;
+      display: inline-block;
+      transform-origin: center;
+    }
+
+    .talking {
+      animation: talk 0.4s infinite;
+    }
+
+    @keyframes talk {
+      0% { transform: scaleY(1); }
+      50% { transform: scaleY(0.5); }
+      100% { transform: scaleY(1); }
+    }
+
+    .reaction-box {
+      margin-top: 20px;
+      padding: 15px;
+      background: #222;
+      border: 1px solid #333;
+      border-radius: 8px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🏉 NRL React Bot (Lite Roast Overload)</h1>
+  <button onclick="giveRoast()">🎤 Get a lite roast</button>
+
+  <div id="reaction" class="reaction-box" style="display: none;"></div>
+
+  <!-- Face -->
+  <div id="face">
+    <div id="eyes">
+      <div class="eye">👁️</div>
+      <div class="eye">👁️</div>
+    </div>
+    <div id="mouth">👄</div>
+  </div>
+
+  <script>
+    // 🌿 Lite roast overload (banter, mid burns, not savage)
+    const reactions = [
+      "That take was… kinda lukewarm, mate.",
+      "Not bad, but not highlight material either.",
+      "Safe call — maybe too safe.",
+      "You really phoned that one in, didn’t ya?",
+      "That was softer than a pre-season trial.",
+      "Bit of a snooze take, champ.",
+      "That’s the diet version of a hot take.",
+      "I’ve seen spicier chat in the canteen line.",
+      "That’s about as bold as picking the Panthers for top 8.",
+      "Yeah… that one won’t make the headlines.",
+      "Like a drizzle instead of a storm.",
+      "That was a vanilla-flavoured hot take.",
+      "Pretty mid, but hey, at least it’s consistent.",
+      "That’s more lukewarm than a stadium pie.",
+      "Congrats, you just invented the beige take.",
+      "That one’s as safe as passing backwards.",
+      "Bro, even the refs wouldn’t bother reviewing that.",
+      "That’s the kind of chat you forget instantly.",
+      "Not bad… not memorable either.",
+      "Like a soft tap instead of a big hit.",
+      "That’s about as risky as tipping the home team.",
+      "Your footy chat’s in neutral gear, mate.",
+      "That one barely left the training paddock.",
+      "Feels like a take written on autopilot.",
+      "More background noise than headline grabber.",
+      "That’s like tipping the favourite and calling it bold.",
+      "Low effort, but at least it’s effort.",
+      "That was about as exciting as a bye round.",
+      "Mildly spicy, like plain nachos.",
+      "Bro, you’re playing footy in slow motion.",
+      "That’s a safe pass straight to the dummy half.",
+      "That’s the lukewarm water of hot takes.",
+      "Mate, even halftime oranges had more kick.",
+      "That was softer than a stadium seat cushion.",
+      "That call didn’t even raise an eyebrow.",
+      "That’s like calling Coke ‘fizzy water’ — technically true, boring though.",
+      "Bit flat, like a ball left out in the rain.",
+      "That one came out weaker than instant coffee.",
+      "Your chat’s jogging when everyone else is sprinting.",
+      "That’s more plain than white bread.",
+      "A soft breeze, not a storm.",
+      "That’s just… beige energy.",
+      "Not a howler, not a highlight. Just… there.",
+      "That’s like tipping the sun to rise tomorrow.",
+      "Mate, even the commentary box would yawn at that one.",
+      "That’s softer than a marshmallow tackle.",
+      "That’s about as edgy as a circle.",
+      "The safest safe take in all the land.",
+      "That’s like watching paint dry on game day.",
+      "You’ve brought less heat than a broken microwave.",
+      "Not terrible, not memorable either.",
+      "That’s the lukewarm beer of opinions.",
+      "That was a whisper, not a shout.",
+      "That’s the light beer of hot takes.",
+      "That was quieter than a library on Tuesday.",
+      "Like a practice drill, not the real match.",
+      "That’s the soft serve of roasts.",
+      "That take was asleep before it started.",
+      "That’s a shrug in sentence form.",
+      "That’s the PG-rated version of a hot take.",
+      "That was less fire, more sparkler.",
+      "Mate, that’s background noise chat.",
+      "That’s the gentle breeze of opinions.",
+      "Not spicy, just… mildly seasoned.",
+      "That’s a take you’d forget by halftime.",
+      "Your chat’s softer than team merch cotton.",
+      "That’s about as sharp as a rubber ball.",
+      "Bro, that’s the cup of tea of hot takes.",
+      "That one could’ve been written by a bot.",
+      "That’s like tipping rain in a thunderstorm.",
+      "That’s the soft soundtrack of NRL banter.",
+      "Bit plain, like unsalted chips.",
+      "That’s not a roar, that’s a meow.",
+      "That’s like calling Origin ‘kinda competitive.’",
+      "Mate, that’s entry-level roasting right there."
+    ];
+
+    const reactionDiv = document.getElementById("reaction");
+    const mouth = document.getElementById("mouth");
+
+    function giveRoast() {
+      mouth.classList.add("talking");
+
+      const randomReaction = reactions[Math.floor(Math.random() * reactions.length)];
+
+      setTimeout(() => {
+        reactionDiv.innerText = `"${randomReaction}"`;
+        reactionDiv.style.display = "block";
+        mouth.classList.remove("talking");
+
+        const utterance = new SpeechSynthesisUtterance(randomReaction);
+        utterance.lang = "en-AU";
+        utterance.rate = 1; 
+        utterance.pitch = 1.1;
+        speechSynthesis.speak(utterance);
+      }, 400);
+    }
+  </script>
+
+</body>
+</html>
