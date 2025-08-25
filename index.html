@@ -1,96 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NRL React Bot Lite</title>
+  <meta charset="UTF-8">
+  <title>NRL React Bot Lite (shitty)</title>
   <style>
     body {
-      background: #111;
-      color: white;
-      font-family: sans-serif;
+      background: lime; 
+      color: black; 
+      font-family: "Comic Sans MS", cursive, sans-serif;
       text-align: center;
-      padding: 40px 20px;
+      margin: 0;
+      padding: 10px;
+      background-image: url("https://www.transparenttextures.com/patterns/bricks.png");
+    }
+
+    h1 {
+      font-size: 50px;
+      color: red;
+      text-shadow: 2px 2px yellow;
+      background: cyan;
+      border: 5px dashed purple;
+      padding: 10px;
     }
 
     button {
-      padding: 12px 24px;
-      font-size: 16px;
-      background-color: #444;
-      color: white;
-      border: none;
-      border-radius: 8px;
+      padding: 20px;
+      font-size: 20px;
+      background: hotpink;
+      color: yellow;
+      border: 5px groove black;
       cursor: pointer;
-      margin: 20px 0;
+      margin: 20px;
+      animation: blink 1s infinite;
     }
 
-    button:hover {
-      background-color: #666;
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    #reaction {
+      margin-top: 20px;
+      padding: 20px;
+      background: orange;
+      border: 10px dotted blue;
+      font-style: italic;
+      font-size: 24px;
+      transform: rotate(-5deg);
     }
 
     #face {
-      font-size: 50px;
-      margin-top: 30px;
-    }
-
-    #eyes {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      margin-bottom: 5px;
-    }
-
-    .eye {
-      font-size: 40px;
-    }
-
-    #mouth {
-      font-size: 50px;
+      margin-top: 40px;
+      font-size: 80px;
+      background: pink;
+      border: 3px solid black;
       display: inline-block;
-      transform-origin: center;
+      padding: 20px;
+      transform: rotate(3deg);
     }
 
-    .talking {
-      animation: talk 0.4s infinite;
+    #mouth.talking {
+      animation: talk 0.2s infinite;
     }
 
     @keyframes talk {
       0% { transform: scaleY(1); }
-      50% { transform: scaleY(0.5); }
+      50% { transform: scaleY(0.1); }
       100% { transform: scaleY(1); }
-    }
-
-    .reaction-box {
-      margin-top: 20px;
-      padding: 15px;
-      background: #222;
-      border: 1px solid #333;
-      border-radius: 8px;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-      font-style: italic;
     }
   </style>
 </head>
 <body>
 
-  <h1>🏉 NRL React Bot Lite</h1>
-  <button onclick="giveRoast()">🎤 Get a lite roast</button>
+  <h1>🏉 WELCOME 2 NRL REACT BOT LITE 🏉</h1>
+  <marquee scrollamount="15" behavior="alternate" bgcolor="yellow">🔥 GET READY 4 THE ROAST 🔥</marquee>
+  <button onclick="giveRoast()">CLICK 4 ROAST</button>
 
-  <div id="reaction" class="reaction-box" style="display: none;"></div>
+  <div id="reaction" style="display:none;"></div>
 
-  <!-- Face -->
   <div id="face">
-    <div id="eyes">
-      <div class="eye">👁️</div>
-      <div class="eye">👁️</div>
-    </div>
-    <div id="mouth">👄</div>
+    👁️ 👁️<br>
+    <span id="mouth">👄</span>
   </div>
 
   <script>
-    // 🌿 Lite roast overload (banter, mid burns, not savage)
     const reactions = [
       "That take was… kinda lukewarm, mate.",
       "Not bad, but not highlight material either.",
@@ -174,9 +168,7 @@
 
     function giveRoast() {
       mouth.classList.add("talking");
-
       const randomReaction = reactions[Math.floor(Math.random() * reactions.length)];
-
       setTimeout(() => {
         reactionDiv.innerText = `"${randomReaction}"`;
         reactionDiv.style.display = "block";
@@ -184,12 +176,9 @@
 
         const utterance = new SpeechSynthesisUtterance(randomReaction);
         utterance.lang = "en-AU";
-        utterance.rate = 1; 
-        utterance.pitch = 1.1;
         speechSynthesis.speak(utterance);
       }, 400);
     }
   </script>
-
 </body>
 </html>
